@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Interactive Division I NIL conference and public disclosure dashboard.">
+  <title>The D-I NIL Map — dashboard</title>
+  <link rel="stylesheet" href="styles.css?v=7">
+</head>
+<body class="fun-dashboard">
+  <nav class="site-nav">
+    <a class="brand" href="index.html"><span class="brand-mark">N</span><span>The D-I NIL Map</span></a>
+    <div class="nav-links"><a href="index.html">Report</a><a class="active" href="dashboard.html">Dashboard</a><a href="index.html#methodology">Method</a><span class="nav-pill">D-I · NIL · 2024–2026</span></div>
+  </nav>
+
+  <main class="dashboard-main">
+    <section class="dashboard-hero">
+      <p class="eyebrow">Interactive Division I comparison</p>
+      <h1>Put the conferences, years, and groups side by side.</h1>
+      <p>Use the time filter to compare the 2024 and 2025 NCAA disclosure snapshots, then switch to the 2026 modeled conference market. The group filter separates Power 4, Group of 5, and FCS/no-football rows. The charts, summary numbers, and table update in the browser.</p>
+    </section>
+
+    <section class="control-panel" aria-label="Dashboard controls">
+      <div class="control"><label for="yearSelect">Time / snapshot year</label><select id="yearSelect"><option value="all">All available years</option><option value="2024">2024 public snapshot</option><option value="2025">2025 public snapshot</option><option value="2026">2026 modeled market</option></select></div>
+      <div class="control"><label for="groupSelect">Group</label><select id="groupSelect"><option value="all">All groups</option><option value="Power 4">Power 4</option><option value="Group of 5">Group of 5</option><option value="FCS / no football">FCS / no football</option></select></div>
+      <div class="control"><label for="measureSelect">Measure</label><select id="measureSelect"><option value="disclosure_count">Disclosure count</option><option value="average_disclosure_value" selected>Average disclosure value</option><option value="median_disclosure_value">Median disclosure value</option><option value="average_total_athlete_earnings">Average athlete earnings</option><option value="median_total_athlete_earnings">Median athlete earnings</option><option value="market_millions">Modeled market</option><option value="programs">Programs</option></select></div>
+      <div class="control"><label for="breakdownSelect">Break down by</label><select id="breakdownSelect"><option value="group">Group</option><option value="conference">Conference</option><option value="sport">Sport</option><option value="position">Football position</option></select></div>
+      <div class="control"><label for="rankSelect">Rows shown</label><select id="rankSelect"><option value="8">Top 8</option><option value="12">Top 12</option><option value="all">All available</option></select></div>
+      <button class="button secondary control-reset" id="resetButton" type="button">Reset every filter</button>
+    </section>
+
+    <section class="dashboard-kpis" aria-label="Current figures">
+      <article class="kpi-card"><span class="kpi-label" id="kpiMetricLabel">Selected measure</span><strong id="kpiMetricValue">—</strong></article>
+      <article class="kpi-card"><span class="kpi-label" id="kpiSecondLabel">Median selected value</span><strong id="kpiSecondValue">—</strong></article>
+      <article class="kpi-card"><span class="kpi-label" id="kpiThirdLabel">Rows in view</span><strong id="kpiThirdValue">—</strong></article>
+      <article class="kpi-card"><span class="kpi-label" id="kpiFourthLabel">Current time</span><strong id="kpiFourthValue">—</strong></article>
+    </section>
+
+    <section class="dashboard-grid">
+      <article class="dashboard-card wide"><div class="chart-title"><strong id="mainChartTitle">Selected measure by group</strong><span id="mainChartSubtitle">browser-calculated view</span></div><div class="chart-wrap dashboard-chart" id="mainChart"></div><p class="chart-note" id="chartNote"></p></article>
+      <article class="dashboard-card wide"><div class="chart-title"><strong>How the selected group changes over time</strong><span>2024–2025 public snapshots</span></div><div class="chart-wrap dashboard-chart" id="trendChart"></div><p class="chart-note" id="trendNote"></p></article>
+      <article class="dashboard-card"><div class="chart-title"><strong>Sport disclosure mix</strong><span>filtered group and year</span></div><div class="chart-wrap dashboard-chart" id="sportChart"></div><p class="chart-note" id="sportNote"></p></article>
+      <article class="dashboard-card"><div class="chart-title"><strong>Football position lens</strong><span>separate FBS model</span></div><div class="chart-wrap dashboard-chart" id="positionChart"></div><p class="chart-note" id="positionNote"></p></article>
+      <article class="dashboard-card wide"><div class="chart-title"><strong>Rows behind the current view</strong><span id="tableNote">—</span></div><div class="table-wrap"><table><thead id="dataHead"></thead><tbody id="dataTable"></tbody></table></div></article>
+      <article class="dashboard-card wide school-explorer" id="schoolExplorer"><div class="chart-title"><strong>Power 4 school showdown</strong><span>extra school-level view</span></div><p class="school-intro">The school explorer keeps the Power 4 estimates at the program level. Filter a conference, sort the board, and tap a school to see its share of the conference market.</p><div class="school-toolbar"><div class="control"><label for="schoolConference">Conference</label><select id="schoolConference"><option value="all">All Power 4 schools</option><option value="SEC">SEC</option><option value="Big Ten">Big Ten</option><option value="ACC">ACC</option><option value="Big 12">Big 12</option></select></div><div class="control"><label for="schoolSort">Sort stickers by</label><select id="schoolSort"><option value="market">Biggest market</option><option value="share">Share of conference</option><option value="alphabetical">A–Z</option></select></div><button class="button fun-button" id="surpriseSchool" type="button">Pick a surprise ✨</button></div><div class="school-cloud" id="schoolCloud"></div><div class="school-detail" id="schoolDetail"></div></article>
+    </section>
+  </main>
+  <footer class="footer">Return to the <a href="index.html">narrative report</a> or read the <a href="index.html#methodology">methodology</a>.</footer>
+  <script src="data/nil_data.js?v=7"></script>
+  <script src="data/nil_history.js?v=1"></script>
+  <script src="dashboard.js?v=7"></script>
+</body>
+</html>
