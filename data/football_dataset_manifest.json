@@ -1,0 +1,51 @@
+{
+  "dataset": "College football event panel, 2021\u20132025",
+  "source": "sportsdataverse/cfbfastR-data",
+  "source_url": "https://github.com/sportsdataverse/cfbfastR-data",
+  "source_file_pattern": "https://raw.githubusercontent.com/sportsdataverse/cfbfastR-data/main/player_stats/csv/player_stats_{year}.csv",
+  "event_file": "data/football_plays_2021_2025.csv.gz",
+  "browser_rollup": "data/football_team_seasons.json",
+  "browser_play_type_rollup": "data/football_play_types.json",
+  "rows": 872023,
+  "columns": 22,
+  "time_column": "season",
+  "group_columns": [
+    "team",
+    "conference",
+    "opponent"
+  ],
+  "categorical_columns": [
+    "team",
+    "conference",
+    "opponent",
+    "play_type"
+  ],
+  "numeric_columns": [
+    "season",
+    "week",
+    "team_score",
+    "opponent_score",
+    "period",
+    "clock_minutes",
+    "clock_seconds",
+    "yards_to_goal",
+    "down",
+    "distance",
+    "rush_yds",
+    "reception_yds",
+    "completion_yds",
+    "touchdown",
+    "field_goal_made"
+  ],
+  "periods": [
+    2021,
+    2022,
+    2023,
+    2024,
+    2025
+  ],
+  "groups": 332,
+  "rows_in_browser_rollup": 1363,
+  "rows_in_play_type_rollup": 5360,
+  "note": "The compressed event file is the qualifying dataset. The browser uses a reproducible team-season aggregation for responsive filtering."
+}

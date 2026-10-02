@@ -3,21 +3,22 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Interactive Division I NIL conference and public disclosure dashboard.">
-  <title>The D-I NIL Map — dashboard</title>
-  <link rel="stylesheet" href="styles.css?v=7">
+  <meta name="description" content="Interactive Division I NIL and five-season college-football panel dashboard.">
+  <title>The D-I NIL Map — dashboard playground</title>
+    <link rel="stylesheet" href="styles.css?v=13">
 </head>
 <body class="fun-dashboard">
+  <div class="money-rain" aria-hidden="true"></div>
   <nav class="site-nav">
     <a class="brand" href="index.html"><span class="brand-mark">N</span><span>The D-I NIL Map</span></a>
-    <div class="nav-links"><a href="index.html">Report</a><a class="active" href="dashboard.html">Dashboard</a><a href="index.html#methodology">Method</a><span class="nav-pill">D-I · NIL · 2024–2026</span></div>
+    <div class="nav-links"><a href="index.html">Report</a><a class="active" href="dashboard.html">Dashboard</a><a href="index.html#methodology">Method</a><span class="nav-pill">D-I · NIL · FOOTBALL</span></div>
   </nav>
 
   <main class="dashboard-main">
     <section class="dashboard-hero">
       <p class="eyebrow">Interactive Division I comparison</p>
-      <h1>Put the conferences, years, and groups side by side.</h1>
-      <p>Use the time filter to compare the 2024 and 2025 NCAA disclosure snapshots, then switch to the 2026 modeled conference market. The group filter separates Power 4, Group of 5, and FCS/no-football rows. The charts, summary numbers, and table update in the browser.</p>
+      <h1>Put the conferences, years and groups side by side.</h1>
+      <p>Use the first controls to compare the 2024 and 2025 NCAA disclosure snapshots with the 2026 modeled conference market. The qualifying football panel below adds five seasons of real event data, with browser-calculated filters, charts, KPIs and table rows.</p>
     </section>
 
     <section class="control-panel" aria-label="Dashboard controls">
@@ -36,18 +37,47 @@
       <article class="kpi-card"><span class="kpi-label" id="kpiFourthLabel">Current time</span><strong id="kpiFourthValue">—</strong></article>
     </section>
 
+    <section class="football-panel" aria-labelledby="football-panel-title">
+      <div class="football-panel-heading"><div><p class="eyebrow"><span></span> Qualifying panel dataset</p><h2 id="football-panel-title">Five seasons of real college-football events.</h2></div><p>This browser view is calculated from the compressed 872,023-row play-by-play panel. Filter by the time column, repeating team group, conference, play type and measure. The event data has five seasons, 332 teams and 22 columns; the charts use responsive team-season and play-type rollups.</p></div>
+      <div class="control-panel football-controls" aria-label="Football panel controls">
+        <div class="control"><label for="footballSeasonFilter">Time / season</label><select id="footballSeasonFilter"><option value="all">All seasons</option></select></div>
+        <div class="control"><label for="footballConferenceFilter">Conference</label><select id="footballConferenceFilter"><option value="all">All conferences</option></select></div>
+        <div class="control"><label for="footballTeamFilter">Group / team</label><select id="footballTeamFilter"><option value="all">All teams</option></select></div>
+        <div class="control"><label for="footballPlayTypeFilter">Play type</label><select id="footballPlayTypeFilter"><option value="all">All play types</option></select></div>
+        <div class="control"><label for="footballMeasureFilter">Measure</label><select id="footballMeasureFilter"><option value="win_pct">Win percentage</option><option value="wins">Wins</option><option value="losses">Losses</option><option value="point_diff">Point differential</option><option value="plays">Plays</option><option value="yards">Recorded yards</option><option value="touchdowns">Touchdowns</option></select></div>
+        <button class="button secondary control-reset" id="footballReset" type="button">Reset football filters</button>
+      </div>
+      <div class="dashboard-kpis football-kpis" aria-label="Football panel figures">
+        <article class="kpi-card"><span class="kpi-label">Weighted win percentage</span><strong id="footballKpiOne">—</strong></article>
+        <article class="kpi-card"><span class="kpi-label">Games represented</span><strong id="footballKpiTwo">—</strong></article>
+        <article class="kpi-card"><span class="kpi-label">Plays represented</span><strong id="footballKpiThree">—</strong></article>
+        <article class="kpi-card"><span class="kpi-label">Teams in view</span><strong id="footballKpiFour">—</strong></article>
+      </div>
+      <div class="dashboard-grid football-chart-grid">
+        <article class="dashboard-card"><div class="chart-title"><strong>Measure by season</strong><span id="footballPanelMeasureLabel">Win percentage</span></div><div class="chart-wrap dashboard-chart" id="footballSeasonChart"></div></article>
+        <article class="dashboard-card"><div class="chart-title"><strong>Measure by conference</strong><span>current filters</span></div><div class="chart-wrap dashboard-chart" id="footballConferenceChart"></div></article>
+        <article class="dashboard-card"><div class="chart-title"><strong>Measure by team</strong><span>top 12 in view</span></div><div class="chart-wrap dashboard-chart" id="footballTeamChart"></div></article>
+        <article class="dashboard-card"><div class="chart-title"><strong>Play-type activity</strong><span>event rollup</span></div><div class="chart-wrap dashboard-chart" id="footballPlayTypeChart"></div></article>
+        <article class="dashboard-card wide"><div class="chart-title"><strong>Rows behind the football view</strong><span id="footballTableNote">—</span></div><div class="table-wrap"><table><thead><tr><th>Season</th><th>Team</th><th>Conference</th><th>Record</th><th>Win %</th><th>Point diff.</th><th>Plays</th></tr></thead><tbody id="footballPanelTable"></tbody></table></div></article>
+      </div>
+      <p class="chart-note football-panel-note" id="footballPanelNote">Loading event rows…</p>
+      <p class="correlation-source">Qualifying event data: <a class="source-link" href="https://github.com/sportsdataverse/cfbfastR-data" target="_blank" rel="noreferrer">sportsdataverse/cfbfastR-data</a>. Download the compressed <a class="source-link" href="data/football_plays_2021_2025.csv.gz">event file</a> or inspect the <a class="source-link" href="data/football_dataset_manifest.json">dataset manifest</a>.</p>
+    </section>
+
     <section class="dashboard-grid">
-      <article class="dashboard-card wide"><div class="chart-title"><strong id="mainChartTitle">Selected measure by group</strong><span id="mainChartSubtitle">browser-calculated view</span></div><div class="chart-wrap dashboard-chart" id="mainChart"></div><p class="chart-note" id="chartNote"></p></article>
-      <article class="dashboard-card wide"><div class="chart-title"><strong>How the selected group changes over time</strong><span>2024–2025 public snapshots</span></div><div class="chart-wrap dashboard-chart" id="trendChart"></div><p class="chart-note" id="trendNote"></p></article>
-      <article class="dashboard-card"><div class="chart-title"><strong>Sport disclosure mix</strong><span>filtered group and year</span></div><div class="chart-wrap dashboard-chart" id="sportChart"></div><p class="chart-note" id="sportNote"></p></article>
-      <article class="dashboard-card"><div class="chart-title"><strong>Football position lens</strong><span>separate FBS model</span></div><div class="chart-wrap dashboard-chart" id="positionChart"></div><p class="chart-note" id="positionNote"></p></article>
+      <article class="dashboard-card wide"><div class="chart-title"><strong id="mainChartTitle">Selected measure by group</strong><span id="mainChartSubtitle">browser-calculated view</span></div><div class="chart-wrap dashboard-chart" id="mainChart"></div></article>
+      <article class="dashboard-card wide"><div class="chart-title"><strong>How the selected group changes over time</strong><span>2024–2025 public snapshots</span></div><div class="chart-wrap dashboard-chart" id="trendChart"></div></article>
+      <article class="dashboard-card"><div class="chart-title"><strong>Sport disclosure mix</strong><span>2025 snapshot or 2026 model</span></div><div class="chart-wrap dashboard-chart" id="sportChart"></div></article>
+      <article class="dashboard-card"><div class="chart-title"><strong>Football position lens</strong><span>2026 model · FBS</span></div><div class="chart-wrap dashboard-chart" id="positionChart"></div></article>
       <article class="dashboard-card wide"><div class="chart-title"><strong>Rows behind the current view</strong><span id="tableNote">—</span></div><div class="table-wrap"><table><thead id="dataHead"></thead><tbody id="dataTable"></tbody></table></div></article>
-      <article class="dashboard-card wide school-explorer" id="schoolExplorer"><div class="chart-title"><strong>Power 4 school showdown</strong><span>extra school-level view</span></div><p class="school-intro">The school explorer keeps the Power 4 estimates at the program level. Filter a conference, sort the board, and tap a school to see its share of the conference market.</p><div class="school-toolbar"><div class="control"><label for="schoolConference">Conference</label><select id="schoolConference"><option value="all">All Power 4 schools</option><option value="SEC">SEC</option><option value="Big Ten">Big Ten</option><option value="ACC">ACC</option><option value="Big 12">Big 12</option></select></div><div class="control"><label for="schoolSort">Sort stickers by</label><select id="schoolSort"><option value="market">Biggest market</option><option value="share">Share of conference</option><option value="alphabetical">A–Z</option></select></div><button class="button fun-button" id="surpriseSchool" type="button">Pick a surprise ✨</button></div><div class="school-cloud" id="schoolCloud"></div><div class="school-detail" id="schoolDetail"></div></article>
+      <article class="dashboard-card wide school-explorer" id="schoolExplorer"><div class="chart-title"><strong>Power 4 school showdown</strong><span>2026 estimate · all-sport</span></div><p class="school-intro">The school explorer keeps the Power 4 estimates at the program level. Filter a conference then sort the board and tap a school to see its share of the conference market.</p><div class="school-toolbar"><div class="control"><label for="schoolConference">Conference</label><select id="schoolConference"><option value="all">All Power 4 schools</option><option value="SEC">SEC</option><option value="Big Ten">Big Ten</option><option value="ACC">ACC</option><option value="Big 12">Big 12</option></select></div><div class="control"><label for="schoolSort">Sort stickers by</label><select id="schoolSort"><option value="market">Biggest market</option><option value="share">Share of conference</option><option value="alphabetical">A–Z</option></select></div><button class="button fun-button" id="surpriseSchool" type="button">Pick a surprise ✨</button></div><div class="school-cloud" id="schoolCloud"></div><div class="school-detail" id="schoolDetail"></div></article>
     </section>
   </main>
   <footer class="footer">Return to the <a href="index.html">narrative report</a> or read the <a href="index.html#methodology">methodology</a>.</footer>
-  <script src="data/nil_data.js?v=7"></script>
-  <script src="data/nil_history.js?v=1"></script>
-  <script src="dashboard.js?v=7"></script>
+  <script src="data/nil_data.js?v=8"></script>
+  <script src="data/nil_history.js?v=9"></script>
+  <script src="dashboard.js?v=11"></script>
+  <script src="football_dashboard.js?v=1"></script>
+  <script src="fun.js?v=12"></script>
 </body>
 </html>

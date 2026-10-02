@@ -3,6 +3,19 @@ window.NIL_HISTORY = {
   source: "NCAA NIL Assist public Data Dashboard",
   source_url: "https://nilassist.ncaa.org/data-dashboard/",
   note: "The 2024 and 2025 rows are public, de-identified disclosure snapshots. They are separate from the 2026 modeled conference-market estimates.",
+  market_history: {
+    source: "The Sideline NIL Tracker",
+    source_url: "https://thesideline.co/nil-tracker?tab=schools",
+    note: "National estimated roster-market history. Conference values for 2021–22 through 2025–26 are backcast from each conference's 2026 share; they are not historical disclosures.",
+    rows: [
+      { year: "2021–22", total_millions: 917 },
+      { year: "2022–23", total_millions: 1170 },
+      { year: "2023–24", total_millions: 1670 },
+      { year: "2024–25", total_millions: 2260 },
+      { year: "2025–26", total_millions: 3100 },
+      { year: "2026–27", total_millions: 4200 }
+    ]
+  },
   trend: [
     { year: 2024, group: "All public disclosures", date_range: "Jan 1–Oct 31, 2024", disclosure_count: null, average_disclosure_value: 2296, median_disclosure_value: 60, average_total_athlete_earnings: 22628, median_total_athlete_earnings: 548 },
     { year: 2025, group: "All public disclosures", date_range: "Jan 1–Jul 31, 2025", disclosure_count: 158156, average_disclosure_value: 4141, median_disclosure_value: 46, average_total_athlete_earnings: 21075, median_total_athlete_earnings: 703 },

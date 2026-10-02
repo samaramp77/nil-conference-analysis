@@ -1,42 +1,54 @@
 # The D-I NIL Map
 
-An interactive Division I-only comparison of modeled NIL roster-market estimates across all 32 conferences, with a focused SEC vs. Big Ten vs. Big 12 vs. ACC comparison and a separate historical layer of public NCAA NIL disclosure snapshots.
+An interactive data report about Division I NIL market concentration, modeled roster-market estimates, public NCAA NIL disclosure snapshots, and a five-season college-football event panel.
 
 ## Files
 
-- `index.html` — the narrative report page, author line, headline numbers, eight chart-backed findings, and the closing data/method section.
-- `dashboard.html` — the standalone interactive dashboard linked from the report page.
-- `dashboard.js` — loads the data in the browser, applies the time, group, measure, breakdown, and row-count filters, calculates summaries, renders four filter-responsive charts, renders the table, and resets every dashboard filter.
-- `report.js` — calculates report headline values and renders the report charts in the browser.
-- `styles.css` — shared layout, typography, colors, responsive styles, and chart styling used by both pages.
-- `data/division1_market.json` — 2026 modeled Division I conference estimates, Power 4 sport mix, 68 Power 4 school estimates, FBS football position context, and player-builder baselines.
-- `data/nil_summary.json` — captured NCAA NIL Assist disclosure snapshot with 2024 comparison, 2025 segments, and sport counts.
-- `data/nil_data.js` — browser-ready fallback copy of `division1_market.json` so the interactive site can load reliably on GitHub Pages.
-- `data/nil_history.js` — browser-ready fallback copy of the historical disclosure rows used by the report and dashboard.
-- `scripts/build_snapshot.py` — validates conference totals, program counts, Power 4 rows, sport mix totals, position counts, and school totals.
+- `index.html` — the scrolling report with eight findings, varied charts, animated money symbols, and the “Where would you play?” quiz.
+- `dashboard.html` — the interactive dashboard with filters, summary numbers, switchable measures, chart breakdowns, a data table, and a Power 4 school explorer.
+- `football_dashboard.js` — browser-side filters, calculations, charts, KPIs, and table for the qualifying five-season football panel.
+- `styles.css` — the shared responsive visual system for the report and dashboard.
+- `report.js` — browser-side report calculations and the donut, lollipop, dumbbell, stacked, bubble, dot-plot, and slope-chart visualizations.
+- `dashboard.js` — browser-side dashboard filtering, calculations, charts, table, school explorer, and reset control.
+- `fun.js` — the falling-money animation and quiz interaction.
+- `data/nil_data.js` — modeled 2026 Division I conference, sport, football-position, and Power 4 program data.
+- `data/nil_history.js` — browser-ready public NCAA NIL Assist disclosure snapshots for 2024 and 2025.
+- `data/football_success.json` — 2025 Power 4 football records matched to the 2026 all-sport program-market estimates.
+- `data/division1_market.json` — JSON copy of the modeled conference-market layer used if the inline JavaScript data is unavailable.
+- `data/nil_summary.json` — compact JSON copy of the public disclosure summary used as a fallback.
+- `data/football_plays_2021_2025.csv.gz` — the qualifying 872,023-row event-level panel; one row is one team-attributed play in one game.
+- `data/football_team_seasons.json` — browser-ready rollup with one row per team-season.
+- `data/football_play_types.json` — browser-ready rollup with one row per team-season-play-type.
+- `data/football_dataset_manifest.json` — row count, column count, periods, groups, and field documentation for the qualifying dataset.
+- `scripts/build_snapshot.py` — validation script for the modeled NIL snapshot.
+- `scripts/build_football_panel.py` — reproducible downloader/transformer that creates the compressed event panel and browser rollups from the public cfbfastR-data season files.
 
-## Data and scope
+## Data sources
 
-The modeled conference layer uses [The Sideline NIL by Conference directory](https://thesideline.co/nil-tracker/conferences/), captured September 30, 2026. Its 32 conference rows represent 354 Division I programs and 49,842 athletes. The source describes the values as estimates that combine public valuation benchmarks with model estimates.
+- The modeled conference and program layer comes from The Sideline NIL Tracker’s NIL by Conference directory: <https://thesideline.co/nil-tracker/conferences>.
+- The historical disclosure layer comes from the NCAA NIL Assist public data dashboard: <https://nilassist.ncaa.org/data-dashboard/>.
+- The football position context is a separate modeled analysis from termiNIL: <https://www.terminil.com/blog/lowest-nil-value-college-football-roster>.
+- The football records come from the NCAA’s 2025 conference standings: <https://fs.ncaa.org.s3.amazonaws.com/Docs/stats/football_records/Standings.pdf>.
+- The qualifying panel comes from the SportsDataverse cfbfastR-data repository: <https://github.com/sportsdataverse/cfbfastR-data>. Its source files cover 2021–2025 college-football events. The project keeps a reduced, compressed event file plus reproducible build script in the repository.
 
-The historical disclosure layer uses the [NCAA NIL Assist public dashboard](https://nilassist.ncaa.org/data-dashboard/). The 2024 snapshot covers January 1 through October 31, 2024, and the 2025 snapshot covers January 1 through July 31, 2025. These are public, de-identified disclosure aggregates, not verified conference payouts or guaranteed athlete pay. Because the date ranges differ, the report labels the comparison as descriptive rather than a complete year-over-year trend.
+The modeled values are estimates, not verified contracts, guaranteed athlete pay, salaries, conference distributions, or collective budgets. The NCAA layer reports de-identified disclosure aggregates, so it is kept separate from the modeled market layer. The success panels compare 2026 all-sport program estimates with 2025 football records. The available comparable disclosure snapshots are 2024 and 2025 and they cover different date windows. The report places those comparable disclosure metrics beside the 2026 model, and the conference full-market and median charts include a clearly labeled historical backcast using the national market-history series.
 
-The position-group drill-down uses [termiNIL’s FBS football position analysis](https://www.terminil.com/blog/lowest-nil-value-college-football-roster) for 14,519 modeled players across 138 FBS programs. It is a separate football model, not a complete Division I sport-by-sport salary file.
-
-No conference rows were dropped after validation. The report explains the market totals, medians, shares, changes, sport mix, position shares, and player-builder formula in its closing methodology section.
+The assignment dataset requirements are met by the football event panel: 872,023 rows, 22 columns, five seasons, 332 team groups, at least four categorical fields, and multiple numeric fields. The dashboard loads the team-season and play-type rollups in the browser and recalculates its figures, charts, and table after filtering by season, conference, team, play type, and measure.
 
 ## Run locally
 
 From this project folder:
 
 ```bash
-python3 -m http.server 8001
+python3 -m http.server 8000
 ```
 
-Then open `http://localhost:8001/` for the report or `http://localhost:8001/dashboard.html` for the dashboard.
+Then open <http://localhost:8000/>. GitHub Pages can serve the same static files from the repository’s main branch.
 
-Validate the modeled estimate data with:
+To rebuild the qualifying panel from the public source files:
 
 ```bash
-python3 scripts/build_snapshot.py
+python3 scripts/build_football_panel.py
 ```
+
+The script downloads the five source CSVs when they are not already cached, writes the compressed event file, and writes the two browser rollups plus the manifest.
