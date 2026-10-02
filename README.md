@@ -22,6 +22,7 @@ An interactive data report about Division I NIL market concentration, modeled ro
 - `data/football_dataset_manifest.json` — row count, column count, periods, groups, and field documentation for the qualifying dataset.
 - `scripts/build_snapshot.py` — validation script for the modeled NIL snapshot.
 - `scripts/build_football_panel.py` — reproducible downloader/transformer that creates the compressed event panel and browser rollups from the public cfbfastR-data season files.
+- `SUBMISSION.txt` — the four-line handoff with the student name, ID, repository URL, and live site URL.
 
 ## Data sources
 
