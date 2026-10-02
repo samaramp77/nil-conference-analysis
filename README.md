@@ -5,7 +5,7 @@ An interactive data report about Division I NIL market concentration, modeled ro
 ## Files
 
 - `index.html` — the scrolling report with eight findings, varied charts, animated money symbols, and the “Where would you play?” quiz.
-- `dashboard.html` — the interactive dashboard with filters, summary numbers, switchable measures, chart breakdowns, a data table, and a Power 4 school explorer.
+- `dashboard.html` — the focused interactive dashboard for the qualifying football panel, with season, conference, team, play-type, measure, and breakdown controls, summary numbers, four changing charts, a data table, and reset control.
 - `football_dashboard.js` — browser-side filters, calculations, charts, KPIs, and table for the qualifying five-season football panel.
 - `styles.css` — the shared responsive visual system for the report and dashboard.
 - `report.js` — browser-side report calculations and the donut, lollipop, dumbbell, stacked, bubble, dot-plot, and slope-chart visualizations.

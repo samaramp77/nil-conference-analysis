@@ -21,7 +21,7 @@
       <p>Use the first controls to compare the 2024 and 2025 NCAA disclosure snapshots with the 2026 modeled conference market. The qualifying football panel below adds five seasons of real event data, with browser-calculated filters, charts, KPIs and table rows.</p>
     </section>
 
-    <section class="control-panel" aria-label="Dashboard controls">
+    <section class="control-panel legacy-dashboard" aria-label="Dashboard controls">
       <div class="control"><label for="yearSelect">Time / snapshot year</label><select id="yearSelect"><option value="all">All available years</option><option value="2024">2024 public snapshot</option><option value="2025">2025 public snapshot</option><option value="2026">2026 modeled market</option></select></div>
       <div class="control"><label for="groupSelect">Group</label><select id="groupSelect"><option value="all">All groups</option><option value="Power 4">Power 4</option><option value="Group of 5">Group of 5</option><option value="FCS / no football">FCS / no football</option></select></div>
       <div class="control"><label for="measureSelect">Measure</label><select id="measureSelect"><option value="disclosure_count">Disclosure count</option><option value="average_disclosure_value" selected>Average disclosure value</option><option value="median_disclosure_value">Median disclosure value</option><option value="average_total_athlete_earnings">Average athlete earnings</option><option value="median_total_athlete_earnings">Median athlete earnings</option><option value="market_millions">Modeled market</option><option value="programs">Programs</option></select></div>
@@ -30,7 +30,7 @@
       <button class="button secondary control-reset" id="resetButton" type="button">Reset every filter</button>
     </section>
 
-    <section class="dashboard-kpis" aria-label="Current figures">
+    <section class="dashboard-kpis legacy-dashboard" aria-label="Current figures">
       <article class="kpi-card"><span class="kpi-label" id="kpiMetricLabel">Selected measure</span><strong id="kpiMetricValue">—</strong></article>
       <article class="kpi-card"><span class="kpi-label" id="kpiSecondLabel">Median selected value</span><strong id="kpiSecondValue">—</strong></article>
       <article class="kpi-card"><span class="kpi-label" id="kpiThirdLabel">Rows in view</span><strong id="kpiThirdValue">—</strong></article>
@@ -45,6 +45,7 @@
         <div class="control"><label for="footballTeamFilter">Group / team</label><select id="footballTeamFilter"><option value="all">All teams</option></select></div>
         <div class="control"><label for="footballPlayTypeFilter">Play type</label><select id="footballPlayTypeFilter"><option value="all">All play types</option></select></div>
         <div class="control"><label for="footballMeasureFilter">Measure</label><select id="footballMeasureFilter"><option value="win_pct">Win percentage</option><option value="wins">Wins</option><option value="losses">Losses</option><option value="point_diff">Point differential</option><option value="plays">Plays</option><option value="yards">Recorded yards</option><option value="touchdowns">Touchdowns</option></select></div>
+        <div class="control"><label for="footballBreakdownFilter">Break down by</label><select id="footballBreakdownFilter"><option value="season">Season</option><option value="conference">Conference</option><option value="team">Team</option></select></div>
         <button class="button secondary control-reset" id="footballReset" type="button">Reset football filters</button>
       </div>
       <div class="dashboard-kpis football-kpis" aria-label="Football panel figures">
@@ -54,7 +55,7 @@
         <article class="kpi-card"><span class="kpi-label">Teams in view</span><strong id="footballKpiFour">—</strong></article>
       </div>
       <div class="dashboard-grid football-chart-grid">
-        <article class="dashboard-card"><div class="chart-title"><strong>Measure by season</strong><span id="footballPanelMeasureLabel">Win percentage</span></div><div class="chart-wrap dashboard-chart" id="footballSeasonChart"></div></article>
+        <article class="dashboard-card"><div class="chart-title"><strong id="footballSelectedChartTitle">Measure by season</strong><span id="footballPanelMeasureLabel">Win percentage</span></div><div class="chart-wrap dashboard-chart" id="footballSeasonChart"></div></article>
         <article class="dashboard-card"><div class="chart-title"><strong>Measure by conference</strong><span>current filters</span></div><div class="chart-wrap dashboard-chart" id="footballConferenceChart"></div></article>
         <article class="dashboard-card"><div class="chart-title"><strong>Measure by team</strong><span>top 12 in view</span></div><div class="chart-wrap dashboard-chart" id="footballTeamChart"></div></article>
         <article class="dashboard-card"><div class="chart-title"><strong>Play-type activity</strong><span>event rollup</span></div><div class="chart-wrap dashboard-chart" id="footballPlayTypeChart"></div></article>
@@ -64,7 +65,7 @@
       <p class="correlation-source">Qualifying event data: <a class="source-link" href="https://github.com/sportsdataverse/cfbfastR-data" target="_blank" rel="noreferrer">sportsdataverse/cfbfastR-data</a>. Download the compressed <a class="source-link" href="data/football_plays_2021_2025.csv.gz">event file</a> or inspect the <a class="source-link" href="data/football_dataset_manifest.json">dataset manifest</a>.</p>
     </section>
 
-    <section class="dashboard-grid">
+    <section class="dashboard-grid legacy-dashboard">
       <article class="dashboard-card wide"><div class="chart-title"><strong id="mainChartTitle">Selected measure by group</strong><span id="mainChartSubtitle">browser-calculated view</span></div><div class="chart-wrap dashboard-chart" id="mainChart"></div></article>
       <article class="dashboard-card wide"><div class="chart-title"><strong>How the selected group changes over time</strong><span>2024–2025 public snapshots</span></div><div class="chart-wrap dashboard-chart" id="trendChart"></div></article>
       <article class="dashboard-card"><div class="chart-title"><strong>Sport disclosure mix</strong><span>2025 snapshot or 2026 model</span></div><div class="chart-wrap dashboard-chart" id="sportChart"></div></article>
@@ -74,9 +75,6 @@
     </section>
   </main>
   <footer class="footer">Return to the <a href="index.html">narrative report</a> or read the <a href="index.html#methodology">methodology</a>.</footer>
-  <script src="data/nil_data.js?v=8"></script>
-  <script src="data/nil_history.js?v=9"></script>
-  <script src="dashboard.js?v=11"></script>
   <script src="football_dashboard.js?v=1"></script>
   <script src="fun.js?v=12"></script>
 </body>
